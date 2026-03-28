@@ -16,14 +16,15 @@
 8. [vue-testing-best-practices](#8-vue-testing-best-practices-vue-测试) - Vue 测试
 9. [create-adaptable-composable](#9-create-adaptable-composable-可适配-composable) - 可适配 Composable
 10. [uniapp-best-practices](#10-uniapp-best-practices-uni-app-跨平台开发) - uni-app 跨平台开发
-11. [docx](#11-docx-word-文档处理) - Word 文档处理
-12. [pdf](#12-pdf-pdf-处理) - PDF 处理
-13. [xlsx](#13-xlsx-excel-表格处理) - Excel 表格处理
-14. [frontend-design](#14-frontend-design-前端界面设计) - 前端界面设计
-15. [ffmpeg-video-tools](#15-ffmpeg-video-tools-视频处理) - FFmpeg 视频处理
-16. [yt-dlp-downloader](#16-yt-dlp-downloader-视频下载) - 视频下载
-17. [bilibili-dynamic](#17-bilibili-dynamic-b站动态获取) - B站动态获取
-18. [skill-creator](#18-skill-creator-技能创建工具) - 技能创建工具
+11. [uniapp-responsive-skill](#11-uniapp-responsive-skill-uni-app-宽屏适配) - uni-app 宽屏适配
+12. [docx](#12-docx-word-文档处理) - Word 文档处理
+13. [pdf](#13-pdf-pdf-处理) - PDF 处理
+14. [xlsx](#14-xlsx-excel-表格处理) - Excel 表格处理
+15. [frontend-design](#15-frontend-design-前端界面设计) - 前端界面设计
+16. [ffmpeg-video-tools](#16-ffmpeg-video-tools-视频处理) - FFmpeg 视频处理
+17. [yt-dlp-downloader](#17-yt-dlp-downloader-视频下载) - 视频下载
+18. [bilibili-dynamic](#18-bilibili-dynamic-b站动态获取) - B站动态获取
+19. [skill-creator](#19-skill-creator-技能创建工具) - 技能创建工具
 
 ---
 
@@ -210,7 +211,47 @@ type MaybeRefOrGetter<T> = MaybeRef<T> | ComputedRef<T> | (() => T);
 
 ---
 
-## 11. docx - Word 文档处理
+## 11. uniapp-responsive-skill - uni-app 宽屏适配
+
+**描述**: 为uni-app应用实现宽屏适配（PC、平板、折叠屏）的完整指南。包含leftWindow/rightWindow/topWindow方案、match-media组件、rpx配置、分栏布局和响应式设计最佳实践。
+
+**触发场景**:
+- 适配uni-app应用到宽屏设备
+- 创建响应式布局
+- 处理分栏显示
+- 优化PC端体验
+- 平板/折叠屏设备适配
+
+**核心适配方案**:
+
+### 1. 页面窗体级方案：leftWindow/rightWindow/topWindow
+- **仅支持Web端**
+- 通过扩展主窗口添加额外区域
+- `rightWindow`：列表-详情分栏
+- `leftWindow`：导航菜单
+- `topWindow`：顶部工具栏
+
+### 2. 组件级方案：match-media组件
+- 在同一页面内适配不同屏幕宽度
+- **支持所有平台**
+- 使用`uni.createMediaQueryObserver`监听屏幕变化
+
+### 3. 分栏布局方案（跨平台）
+- 使用Vue组件特性实现跨平台分栏
+- 通过`uni.getDeviceInfo()`检测设备类型
+- 窗口间通过`uni.$emit`/`uni.$on`通信
+
+**断点选择**:
+- 手机：< 768px
+- 平板：768px - 1024px
+- 桌面：>= 1024px
+- 宽屏：>= 1280px
+
+**核心思想**: 渐进增强而非完全重写，从手机布局开始逐步添加宽屏优化。
+
+---
+
+## 12. docx - Word 文档处理
 
 **描述**: 创建、读取、编辑和处理 Word 文档 (.docx 文件)。
 
@@ -231,7 +272,7 @@ type MaybeRefOrGetter<T> = MaybeRef<T> | ComputedRef<T> | (() => T);
 
 ---
 
-## 12. pdf - PDF 处理
+## 13. pdf - PDF 处理
 
 **描述**: PDF 文件处理，包括读取、提取文本/表格、合并、拆分、旋转、水印、创建、表单填充、加密/解密、OCR 等。
 
@@ -252,7 +293,7 @@ type MaybeRefOrGetter<T> = MaybeRef<T> | ComputedRef<T> | (() => T);
 
 ---
 
-## 13. xlsx - Excel 表格处理
+## 14. xlsx - Excel 表格处理
 
 **描述**: Excel 文件（.xlsx、.xlsm、.csv、.tsv）的读取、编辑、创建和格式化。
 
@@ -276,7 +317,7 @@ type MaybeRefOrGetter<T> = MaybeRef<T> | ComputedRef<T> | (() => T);
 
 ---
 
-## 14. frontend-design - 前端界面设计
+## 15. frontend-design - 前端界面设计
 
 **描述**: 创建独特的、生产级的前端界面，具有高设计质量。用于网页组件、页面、应用、海报等。
 
@@ -298,7 +339,7 @@ type MaybeRefOrGetter<T> = MaybeRef<T> | ComputedRef<T> | (() => T);
 
 ---
 
-## 15. ffmpeg-video-tools - 视频处理
+## 16. ffmpeg-video-tools - 视频处理
 
 **描述**: FFmpeg 视频处理工具集。用于视频格式转换、分辨率修改、视频压缩、视频剪辑、音频提取、添加水印等。
 
@@ -320,7 +361,7 @@ type MaybeRefOrGetter<T> = MaybeRef<T> | ComputedRef<T> | (() => T);
 
 ---
 
-## 16. yt-dlp-downloader - 视频下载
+## 17. yt-dlp-downloader - 视频下载
 
 **描述**: 使用 yt-dlp 下载视频，支持 B站、YouTube、Twitter/X、抖音等主流平台。
 
@@ -347,7 +388,7 @@ yt-dlp -p --playlist-start 1 --playlist-end 10 "播放列表URL"
 
 ---
 
-## 17. bilibili-dynamic - B站动态获取
+## 18. bilibili-dynamic - B站动态获取
 
 **描述**: 获取 Bilibili 用户动态、关注列表、用户信息等。
 
@@ -367,7 +408,7 @@ yt-dlp -p --playlist-start 1 --playlist-end 10 "播放列表URL"
 
 ---
 
-## 18. skill-creator - 技能创建工具
+## 19. skill-creator - 技能创建工具
 
 **描述**: 创建新技能、修改优化现有技能、测量技能性能。用于从零创建技能、编辑优化技能、运行评估测试技能性能。
 
@@ -403,6 +444,7 @@ yt-dlp -p --playlist-start 1 --playlist-end 10 "播放列表URL"
 | vue-testing-best-practices | Vue 测试 | 测试、Vitest、Playwright |
 | create-adaptable-composable | 可适配 Composable | Composable、MaybeRef |
 | uniapp-best-practices | uni-app 开发 | uni-app、小程序、跨平台 |
+| uniapp-responsive-skill | uni-app 宽屏适配 | 宽屏适配、PC端、响应式、分栏 |
 | docx | Word 文档 | Word、.docx、报告 |
 | pdf | PDF 处理 | PDF、.pdf |
 | xlsx | Excel 处理 | Excel、.xlsx、表格 |
